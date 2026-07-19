@@ -5,9 +5,18 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PORTFOLIO_PROJECTS } from "@/lib/constants";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const categories = ["all", "residential", "interior", "commercial", "renovation"];
+
+const PROJECT_IMAGES: Record<string, string> = {
+  residential: "/images/site/hero-villa.jpg",
+  interior: "/images/site/interior-living.jpg",
+  commercial: "/images/site/office.jpg",
+  renovation: "/images/site/detail.jpg",
+};
+const FALLBACK_IMAGE = "/images/site/modern-exterior.jpg";
 
 export default function PortfolioPage() {
   const [active, setActive] = useState("all");
@@ -61,7 +70,7 @@ export default function PortfolioPage() {
                 onClick={() => setActive(cat)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all capitalize ${
                   active === cat
-                    ? "bg-teal text-white shadow-lg shadow-teal/20"
+                    ? "bg-teal text-dark shadow-lg shadow-teal/20"
                     : "bg-dark-light text-white border border-white/8 hover:border-teal/30"
                 }`}
               >
@@ -83,9 +92,15 @@ export default function PortfolioPage() {
                   transition={{ duration: 0.3 }}
                 >
                   <Link href={`/portfolio/${project.slug}`}>
-                    <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-charcoal-light cursor-pointer">
-                      <div className="absolute inset-0 bg-gradient-to-br from-charcoal-light to-charcoal" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                    <div className="group relative rounded-2xl overflow-hidden aspect-[4/3] bg-dark-mid cursor-pointer">
+                      <Image
+                        src={PROJECT_IMAGES[project.category] || FALLBACK_IMAGE}
+                        alt={project.title}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        className="project-image object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
 
                       <div className="absolute top-4 left-4">
                         <span className="px-3 py-1 rounded-full text-xs font-medium bg-teal/20 text-teal backdrop-blur-sm border border-teal/20 capitalize">
@@ -118,7 +133,7 @@ export default function PortfolioPage() {
 
           {/* Info */}
           <ScrollReveal>
-            <div className="mt-16 text-center p-8 rounded-2xl bg-white border border-white/8">
+            <div className="mt-16 text-center p-8 rounded-2xl bg-dark-mid/60 border border-white/8">
               <p className="text-white font-semibold mb-2">Want to see more?</p>
               <p className="text-white/50 text-sm">
                 We have 150+ completed projects. Contact us for a detailed portfolio presentation tailored to your project type.

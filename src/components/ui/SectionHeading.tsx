@@ -1,12 +1,13 @@
-"use client";
-
-import { motion } from "framer-motion";
+import { TextReveal } from "@/components/motion/TextReveal";
+import { Reveal } from "@/components/motion/Reveal";
+import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
   label?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
+  className?: string;
 }
 
 export function SectionHeading({
@@ -14,34 +15,26 @@ export function SectionHeading({
   title,
   description,
   align = "center",
+  className,
 }: SectionHeadingProps) {
+  const centered = align === "center";
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className={`mb-16 ${align === "center" ? "text-center" : "text-left"}`}
+    <div
+      className={cn(
+        "mb-14",
+        centered ? "mx-auto max-w-2xl text-center" : "max-w-2xl",
+        className
+      )}
     >
       {label && (
-        <span className="inline-block text-teal text-sm font-semibold uppercase tracking-[0.2em] mb-3">
-          {label}
-        </span>
+        <div className={cn("section-kicker", centered && "justify-center")}>{label}</div>
       )}
-      <h2
-        className="text-3xl md:text-4xl lg:text-5xl font-extrabold font-[family-name:var(--font-heading)] leading-tight text-white"
-      >
-        {title}
-      </h2>
+      <TextReveal as="h2" text={title} className="display-heading" />
       {description && (
-        <p
-          className={`mt-4 text-lg max-w-2xl ${
-            align === "center" ? "mx-auto" : ""
-          } text-white/50`}
-        >
-          {description}
-        </p>
+        <Reveal delay={0.1}>
+          <p className="mt-5 text-[0.95rem] leading-7 text-light/50">{description}</p>
+        </Reveal>
       )}
-    </motion.div>
+    </div>
   );
 }

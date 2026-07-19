@@ -2,90 +2,113 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { NAV_LINKS } from "@/lib/constants";
+import { Magnetic } from "@/components/motion/Magnetic";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, { stiffness: 120, damping: 24, mass: 0.3 });
+
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = isMobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobileOpen]);
+
   return (
     <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? "bg-dark/90 backdrop-blur-xl border-b border-white/5"
-            : "bg-transparent"
+            ? "bg-dark/80 backdrop-blur-xl border-b border-white/[0.06]"
+            : "bg-transparent border-b border-transparent"
         }`}
       >
         <nav className="site-shell flex h-20 items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 text-white" aria-label="Dreamz Dezignerz home">
-            <span className="grid h-8 w-8 place-items-center border border-teal/70 font-[family-name:var(--font-heading)] text-sm font-bold text-teal">DD</span>
-            <span className="font-[family-name:var(--font-heading)] text-sm font-bold uppercase leading-none tracking-[0.12em]">
-              Dreamz<br /><span className="text-white/55">Dezignerz</span>
+          <Link href="/" className="flex items-center gap-3 text-light" aria-label="Dreamz Dezignerz home">
+            <span className="grid h-9 w-9 place-items-center rounded-full border border-teal/60 font-[family-name:var(--font-display)] text-sm font-semibold text-teal">
+              DD
+            </span>
+            <span className="font-[family-name:var(--font-display)] text-[0.82rem] font-semibold uppercase leading-none tracking-[0.16em]">
+              Dreamz <span className="text-light/45">Dezignerz</span>
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden items-center gap-9 lg:flex">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs font-semibold uppercase tracking-[0.11em] text-white/65 transition-colors hover:text-white"
+                className="u-line font-[family-name:var(--font-display)] text-[0.72rem] font-medium uppercase tracking-[0.14em] text-light/60 transition-colors hover:text-light"
               >
                 {link.label}
               </Link>
             ))}
           </div>
 
-          <div className="hidden lg:flex items-center gap-3">
-            <Link
-              href="/contact"
-              className="flex items-center gap-2 bg-teal px-5 py-3 text-xs font-bold uppercase tracking-[0.1em] text-dark transition-colors hover:bg-teal-light"
-            >
-              Discuss project <ArrowUpRight size={14} />
-            </Link>
+          <div className="hidden lg:block">
+            <Magnetic strength={0.4}>
+              <Link
+                href="/contact"
+                className="btn-fill group/btn relative inline-flex items-center gap-2 rounded-full bg-teal px-6 py-3 font-[family-name:var(--font-display)] text-[0.72rem] font-medium uppercase tracking-[0.12em] text-dark"
+              >
+                <span className="relative z-10 inline-flex items-center gap-2">
+                  Discuss project
+                  <ArrowUpRight size={14} className="transition-transform duration-300 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5" />
+                </span>
+              </Link>
+            </Magnetic>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
-            onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`lg:hidden p-2 rounded-lg ${isScrolled ? "text-white" : "text-white"}`}
+            onClick={() => setIsMobileOpen((v) => !v)}
+            className="p-2 text-light lg:hidden"
+            aria-label={isMobileOpen ? "Close menu" : "Open menu"}
           >
             {isMobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </nav>
-      </motion.header>
 
-      {/* Mobile Menu Overlay */}
+        <motion.div
+          className="absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-teal via-teal-light to-orange"
+          style={{ scaleX: progress }}
+        />
+      </header>
+
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
-            animate={{ opacity: 1, clipPath: "circle(150% at calc(100% - 40px) 40px)" }}
-            exit={{ opacity: 0, clipPath: "circle(0% at calc(100% - 40px) 40px)" }}
-            transition={{ duration: 0.5 }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 bg-dark lg:hidden"
+            initial={{ opacity: 0, clipPath: "circle(0% at calc(100% - 44px) 44px)" }}
+            animate={{ opacity: 1, clipPath: "circle(160% at calc(100% - 44px) 44px)" }}
+            exit={{ opacity: 0, clipPath: "circle(0% at calc(100% - 44px) 44px)" }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center gap-7 bg-dark lg:hidden"
           >
             {NAV_LINKS.map((link, i) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 + i * 0.05 }}
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.12 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
               >
                 <Link
                   href={link.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className="font-[family-name:var(--font-heading)] text-3xl font-semibold text-white transition-colors hover:text-teal"
+                  className="font-[family-name:var(--font-heading)] text-4xl font-light text-light transition-colors hover:text-teal"
                 >
                   {link.label}
                 </Link>
@@ -95,9 +118,9 @@ export function Navbar() {
               <Link
                 href="/contact"
                 onClick={() => setIsMobileOpen(false)}
-                className="mt-6 bg-teal px-8 py-3 font-semibold text-dark"
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-teal px-8 py-3.5 font-[family-name:var(--font-display)] text-xs font-medium uppercase tracking-[0.12em] text-dark"
               >
-                Get Free Quote
+                Get free quote <ArrowUpRight size={15} />
               </Link>
             </motion.div>
           </motion.div>

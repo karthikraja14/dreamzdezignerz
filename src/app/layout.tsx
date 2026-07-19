@@ -1,26 +1,27 @@
 import type { Metadata } from "next";
-import { DM_Sans, Bebas_Neue, Syne } from "next/font/google";
+import { Inter, Fraunces, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
 
-const dmSans = DM_Sans({
+const inter = Inter({
   variable: "--font-body",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const bebasNeue = Bebas_Neue({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const syne = Syne({
+const fraunces = Fraunces({
   variable: "--font-heading",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${dmSans.variable} ${bebasNeue.variable} ${syne.variable} h-full`}>
+    <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} ${fraunces.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
         <Navbar />
         <main className="flex-1">{children}</main>

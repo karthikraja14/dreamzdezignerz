@@ -2,7 +2,15 @@ import { PORTFOLIO_PROJECTS } from "@/lib/constants";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { ArrowLeft, MapPin, Clock, Ruler } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+
+const GALLERY = [
+  "/images/site/interior-living.jpg",
+  "/images/site/detail.jpg",
+  "/images/site/modern-exterior.jpg",
+  "/images/site/office.jpg",
+];
 
 export function generateStaticParams() {
   return PORTFOLIO_PROJECTS.map((p) => ({ slug: p.slug }));
@@ -38,11 +46,18 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-6">
-          {/* Placeholder for project images */}
+          {/* Project gallery */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-charcoal/5 to-charcoal/10 border border-white/8 flex items-center justify-center">
-                <span className="text-teal/30 text-sm">Project Image {i}</span>
+            {GALLERY.map((src, i) => (
+              <div key={i} className="group relative aspect-[4/3] overflow-hidden rounded-2xl border border-white/8 bg-dark-mid">
+                <Image
+                  src={src}
+                  alt={`${project.title} — view ${i + 1}`}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="project-image object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
               </div>
             ))}
           </div>

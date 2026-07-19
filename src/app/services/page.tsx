@@ -59,7 +59,7 @@ export default function ServicesPage() {
                   <Link href={`/services/${service.slug}`}>
                     <motion.div
                       whileHover={{ x: 8 }}
-                      className="group p-8 rounded-2xl bg-white border border-white/8 hover:border-teal/20 transition-all flex flex-col lg:flex-row gap-6 items-start"
+                      className="group p-8 rounded-2xl bg-dark-mid/60 border border-white/8 hover:border-teal/25 transition-all flex flex-col lg:flex-row gap-6 items-start"
                     >
                       <div className="w-16 h-16 rounded-xl bg-teal/10 flex items-center justify-center shrink-0 group-hover:bg-teal/20 transition-colors">
                         <Icon size={30} className="text-teal" />

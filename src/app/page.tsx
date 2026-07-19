@@ -1,4 +1,5 @@
 import { HeroCinematic } from "@/components/home/HeroCinematic";
+import { MarqueeBand } from "@/components/home/MarqueeBand";
 import { ServicesScroll } from "@/components/home/ServicesScroll";
 import { StatsScroll } from "@/components/home/StatsScroll";
 import { ProjectsShowcase } from "@/components/home/ProjectsShowcase";
@@ -10,6 +11,7 @@ export default function HomePage() {
   return (
     <>
       <HeroCinematic />
+      <MarqueeBand />
       <ServicesScroll />
       <StatsScroll />
       <ProjectsShowcase />
