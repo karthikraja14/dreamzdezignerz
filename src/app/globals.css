@@ -1,0 +1,213 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-teal: #38c3bb;
+  --color-teal-light: #72ddd6;
+  --color-teal-dark: #17958e;
+  --color-orange: #f0643b;
+  --color-orange-light: #ff916e;
+  --color-orange-dark: #c94725;
+  --color-dark: #090b0d;
+  --color-dark-light: #111518;
+  --color-dark-mid: #1a2024;
+  --color-slate: #8c989e;
+  --color-light: #f2f4f3;
+  --color-light-alt: #dce2df;
+  --color-white: #ffffff;
+  --color-background: #090b0d;
+  --color-foreground: #f2f4f3;
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+:root {
+  color-scheme: dark;
+  --page-gutter: clamp(1.25rem, 4vw, 4rem);
+}
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  margin: 0;
+  background: #090b0d;
+  color: #f2f4f3;
+}
+
+body {
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: var(--font-body), sans-serif;
+}
+
+::selection {
+  background: #38c3bb;
+  color: #090b0d;
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #090b0d; }
+::-webkit-scrollbar-thumb { background: #38c3bb; }
+
+.tracking-tight { letter-spacing: 0 !important; }
+
+.site-shell {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+  padding-inline: var(--page-gutter);
+}
+
+.hero-stage {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(5, 7, 8, 0.9) 0%, rgba(5, 7, 8, 0.48) 58%, rgba(5, 7, 8, 0.18) 100%),
+    linear-gradient(0deg, rgba(5, 7, 8, 0.92) 0%, transparent 55%);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.18;
+  background-image: linear-gradient(90deg, transparent calc(100% - 1px), rgba(255,255,255,.2) 1px);
+  background-size: 25% 100%;
+  pointer-events: none;
+}
+
+.hero-title {
+  margin: 0;
+  color: #fff;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 4rem;
+  font-weight: 600;
+  line-height: 0.92;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.hero-title span { color: #72ddd6; }
+
+.hero-scroll {
+  position: absolute;
+  right: var(--page-gutter);
+  bottom: 1.5rem;
+  z-index: 10;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 50%;
+  color: white;
+}
+
+.section-frame {
+  position: relative;
+  padding-block: 7rem;
+}
+
+.section-kicker {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  color: #38c3bb;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+}
+
+.section-kicker::before {
+  content: "";
+  width: 2rem;
+  height: 1px;
+  background: currentColor;
+}
+
+.display-heading {
+  margin: 1.25rem 0 0;
+  color: white;
+  font-family: var(--font-heading), sans-serif;
+  font-size: 3.5rem;
+  font-weight: 600;
+  line-height: .98;
+  letter-spacing: 0;
+}
+
+.card-dark,
+.card-glass,
+.glass-dark,
+.glass-card {
+  background: #111518;
+  border: 1px solid rgba(255,255,255,.09);
+}
+
+.section-light,
+.section-dark,
+.blueprint-bg,
+.hero-gradient,
+.gradient-mesh {
+  background: #090b0d;
+  color: #f2f4f3;
+}
+
+.grid-pattern,
+.geo-grid,
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.text-gradient,
+.text-gradient-teal,
+.text-gradient-mix {
+  color: #72ddd6;
+}
+
+.text-gradient-orange { color: #ff916e; }
+
+.project-image {
+  transition: transform 900ms cubic-bezier(.2,.75,.25,1);
+}
+
+.group:hover .project-image { transform: scale(1.045); }
+
+@media (min-width: 768px) {
+  .hero-title { font-size: 6rem; }
+  .display-heading { font-size: 5rem; }
+}
+
+@media (min-width: 1280px) {
+  .hero-title { font-size: 7.5rem; }
+  .display-heading { font-size: 6.25rem; }
+}
+
+@media (max-width: 640px) {
+  .hero-title { font-size: 3.45rem; }
+  .section-frame { padding-block: 5rem; }
+  .display-heading { font-size: 3rem; }
+  .hero-grid { background-size: 50% 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
