@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { Reveal } from "@/components/motion/Reveal";
+import { TextReveal } from "@/components/motion/TextReveal";
 import { Button } from "@/components/ui/Button";
 import { Target, Eye, Heart, Shield, Users, Award } from "lucide-react";
 
@@ -23,184 +25,151 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="gradient-mesh relative pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-1.5 rounded-full border border-teal/30 text-teal text-sm font-medium mb-6"
-          >
-            About Us
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-white leading-tight mb-6"
-          >
-            Building Dreams
-            <br />
-            <span className="text-gradient-teal">Since Day One</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-white/60 text-lg max-w-2xl mx-auto"
-          >
-            DreamzDesignerz is a full-service construction and interior design firm
-            committed to transforming visions into extraordinary spaces.
-          </motion.p>
+      <section className="hero-atelier grain">
+        <div className="site-shell pt-36 pb-16 md:pt-44 md:pb-20">
+          <div className="flex items-center justify-between border-b border-ink/10 pb-6">
+            <span className="section-kicker">About the studio</span>
+            <span className="font-[family-name:var(--font-display)] text-[0.72rem] uppercase tracking-[0.24em] text-slate">
+              Est. Chennai
+            </span>
+          </div>
+          <h1 className="hero-title mt-10 max-w-[15ch]">
+            Building dreams, <em>since day one.</em>
+          </h1>
+          <Reveal className="mt-8 max-w-2xl text-lg leading-8 text-slate">
+            Dreamz Dezignerz is a full-service construction and interior design firm
+            committed to transforming visions into extraordinary spaces — engineered
+            with precision, delivered with transparency.
+          </Reveal>
         </div>
       </section>
 
       {/* Story */}
-      <section className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <ScrollReveal>
-              <div>
-                <span className="text-teal text-sm font-semibold uppercase tracking-[0.2em] mb-3 block">
-                  Our Story
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)] text-white mb-6">
-                  From a Vision to an <span className="text-gradient-teal">Empire</span>
-                </h2>
-                <div className="space-y-4 text-white/50 leading-relaxed">
-                  <p>
-                    DreamzDesignerz was born from a simple belief: everyone deserves a space that
-                    reflects their aspirations. What started as a passion for design and engineering
-                    has grown into a comprehensive construction and interior design firm.
-                  </p>
-                  <p>
-                    We combine cutting-edge technology with traditional craftsmanship. Our proprietary
-                    project management platform, Vystra, gives you real-time visibility into every
-                    aspect of your project — from material procurement to daily progress photos.
-                  </p>
-                  <p>
-                    Today, with over 150 projects delivered and 50,000+ sq.ft of space transformed,
-                    we&apos;re just getting started. Our mission is to become the most trusted name in
-                    end-to-end construction and design.
-                  </p>
-                </div>
-              </div>
-            </ScrollReveal>
-            <ScrollReveal direction="right">
-              <div className="relative">
-                <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-charcoal to-charcoal-light overflow-hidden border border-white/8">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="text-teal/20 text-8xl font-[family-name:var(--font-heading)] font-bold">DD</span>
-                  </div>
-                </div>
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 rounded-2xl bg-teal/10 border border-teal/20 flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-2xl font-bold text-teal">8+</span>
-                    <p className="text-xs text-teal/70">Years</p>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
+      <section className="section-frame section-light border-t border-ink/10">
+        <div className="site-shell grid gap-14 lg:grid-cols-2 lg:items-center lg:gap-20">
+          <div>
+            <span className="section-kicker">Our story</span>
+            <TextReveal as="h2" text="From a vision to an atelier." className="display-heading" />
+            <div className="mt-7 space-y-4 leading-7 text-slate">
+              <p>
+                Dreamz Dezignerz was born from a simple belief: everyone deserves a space that
+                reflects their aspirations. What started as a passion for design and engineering
+                has grown into a comprehensive construction and interior design firm.
+              </p>
+              <p>
+                We combine cutting-edge technology with traditional craftsmanship. Our project
+                management platform, Vystra, gives you real-time visibility into every aspect of
+                your project — from material procurement to daily progress photos.
+              </p>
+              <p>
+                Today, with over 150 projects delivered and 50,000+ sq.ft transformed, we&apos;re
+                just getting started — on a mission to become the most trusted name in end-to-end
+                construction and design.
+              </p>
+            </div>
           </div>
+          <Reveal direction="right">
+            <div className="relative">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[4px] bg-light-alt">
+                <Image
+                  src="/images/site/interior-living.jpg"
+                  alt="Interior crafted by Dreamz Dezignerz"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 45vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="absolute -bottom-6 -left-6 grid h-32 w-32 place-items-center rounded-[4px] bg-ink text-center text-paper">
+                <div>
+                  <span className="font-[family-name:var(--font-heading)] text-3xl">8+</span>
+                  <p className="mt-1 font-[family-name:var(--font-display)] text-[0.62rem] uppercase tracking-[0.18em] text-paper/60">
+                    Years
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
       {/* Vision & Mission */}
-      <section className="bg-dark-light py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-8">
-            <ScrollReveal>
-              <div className="p-8 rounded-2xl border border-white/8 bg-white/5">
-                <Eye size={32} className="text-teal mb-4" />
-                <h3 className="text-2xl font-bold text-white font-[family-name:var(--font-heading)] mb-4">
-                  Our Vision
-                </h3>
-                <p className="text-white/60 leading-relaxed">
-                  To be the most innovative and trusted construction and design company in India —
-                  setting new standards in quality, transparency, and client experience through
-                  technology-driven project execution.
-                </p>
+      <section className="section-sand py-24">
+        <div className="site-shell grid gap-6 md:grid-cols-2">
+          {[
+            { icon: Eye, title: "Our Vision", body: "To be the most innovative and trusted construction and design company in India — setting new standards in quality, transparency, and client experience through technology-driven execution." },
+            { icon: Target, title: "Our Mission", body: "To deliver exceptional end-to-end construction and interior design services that exceed expectations — combining architectural excellence, premium craftsmanship, and real-time transparency." },
+          ].map((item, i) => (
+            <Reveal key={item.title} delay={i * 0.1}>
+              <div className="h-full rounded-[4px] border border-ink/10 bg-paper p-8 md:p-10">
+                <item.icon size={30} className="text-teal" />
+                <h3 className="mt-5 font-[family-name:var(--font-heading)] text-2xl text-ink">{item.title}</h3>
+                <p className="mt-4 leading-7 text-slate">{item.body}</p>
               </div>
-            </ScrollReveal>
-            <ScrollReveal delay={0.2}>
-              <div className="p-8 rounded-2xl border border-white/8 bg-white/5">
-                <Target size={32} className="text-teal mb-4" />
-                <h3 className="text-2xl font-bold text-white font-[family-name:var(--font-heading)] mb-4">
-                  Our Mission
-                </h3>
-                <p className="text-white/60 leading-relaxed">
-                  To deliver exceptional end-to-end construction and interior design services that
-                  exceed expectations — combining architectural excellence, premium craftsmanship,
-                  and real-time project transparency for every client.
-                </p>
-              </div>
-            </ScrollReveal>
-          </div>
+            </Reveal>
+          ))}
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionHeading
-            label="Our Values"
-            title="What Drives Us"
-            description="These principles guide every decision we make and every space we create."
-          />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <section className="section-frame section-light">
+        <div className="site-shell">
+          <SectionHeading label="Our values" title="What drives us" description="These principles guide every decision we make and every space we create." align="left" />
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {values.map((value, i) => (
-              <ScrollReveal key={value.title} delay={i * 0.1}>
-                <div className="p-6 rounded-2xl card-dark border border-white/8 text-center hover:border-teal/20 transition-all h-full">
-                  <div className="w-14 h-14 rounded-xl bg-teal/10 flex items-center justify-center mx-auto mb-4">
-                    <value.icon size={24} className="text-teal" />
+              <Reveal key={value.title} delay={i * 0.1}>
+                <div className="group h-full rounded-[4px] border border-ink/10 bg-white/60 p-7 transition-colors hover:border-teal/40">
+                  <div className="grid h-12 w-12 place-items-center rounded-full bg-teal/10">
+                    <value.icon size={22} className="text-teal" />
                   </div>
-                  <h3 className="font-semibold text-white mb-2">{value.title}</h3>
-                  <p className="text-white/50 text-sm leading-relaxed">{value.description}</p>
+                  <h3 className="mt-5 font-[family-name:var(--font-heading)] text-xl text-ink">{value.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-slate">{value.description}</p>
                 </div>
-              </ScrollReveal>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Team */}
-      <section className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-6">
-          <SectionHeading
-            label="Our Team"
-            title="The People Behind the Magic"
-            description="A passionate team of engineers, designers, and project managers."
-          />
-          <div className="grid md:grid-cols-3 gap-8">
+      <section className="section-frame section-sand">
+        <div className="site-shell">
+          <SectionHeading label="Our team" title="The people behind the magic" description="A passionate team of engineers, designers, and project managers." align="left" />
+          <div className="grid gap-6 md:grid-cols-3">
             {team.map((member, i) => (
-              <ScrollReveal key={member.name} delay={i * 0.15}>
-                <div className="p-8 rounded-2xl card-dark border border-white/8 text-center hover:border-teal/20 transition-all">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-teal/20 to-copper/20 mx-auto mb-4 flex items-center justify-center">
-                    <Users size={32} className="text-teal" />
+              <Reveal key={member.name} delay={i * 0.12}>
+                <div className="h-full rounded-[4px] border border-ink/10 bg-paper p-8">
+                  <div className="grid h-16 w-16 place-items-center rounded-full bg-teal/10">
+                    <Users size={26} className="text-teal" />
                   </div>
-                  <h3 className="text-lg font-semibold text-white font-[family-name:var(--font-heading)]">
-                    {member.name}
-                  </h3>
-                  <p className="text-teal text-sm mb-3">{member.role}</p>
-                  <p className="text-white/50 text-sm leading-relaxed">{member.description}</p>
+                  <h3 className="mt-5 font-[family-name:var(--font-heading)] text-xl text-ink">{member.name}</h3>
+                  <p className="mt-1 font-[family-name:var(--font-display)] text-[0.72rem] uppercase tracking-[0.16em] text-teal">{member.role}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate">{member.description}</p>
                 </div>
-              </ScrollReveal>
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="bg-dark-light py-20">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)] text-white mb-6">
-            Ready to Work With Us?
-          </h2>
-          <p className="text-white/60 mb-8 max-w-xl mx-auto">
+      <section className="section-dark py-24">
+        <div className="site-shell text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mx-auto max-w-2xl font-[family-name:var(--font-heading)] text-3xl text-paper md:text-5xl"
+          >
+            Ready to work with us?
+          </motion.h2>
+          <p className="mx-auto mt-5 max-w-xl text-paper/60">
             Let&apos;s discuss your project. Book a free consultation and see how we can transform your space.
           </p>
-          <Button href="/contact" size="lg">
-            Get Started Today
-          </Button>
+          <div className="mt-8">
+            <Button href="/contact" size="lg" arrow>
+              Get started today
+            </Button>
+          </div>
         </div>
       </section>
     </>

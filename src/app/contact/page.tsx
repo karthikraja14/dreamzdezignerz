@@ -21,6 +21,9 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
+const inputClass =
+  "w-full px-4 py-3 rounded-[4px] border border-ink/15 bg-white text-ink placeholder:text-slate/60 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all";
+
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const {
@@ -30,110 +33,69 @@ export default function ContactPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    // TODO: Connect to backend/Vystra API
     console.log("Form submitted:", data);
     await new Promise((r) => setTimeout(r, 1000));
     setIsSubmitted(true);
   };
 
+  const contactItems = [
+    { icon: Phone, label: "Phone", value: COMPANY.phone, href: `tel:${COMPANY.phone}` },
+    { icon: Mail, label: "Email", value: COMPANY.email, href: `mailto:${COMPANY.email}` },
+    { icon: MapPin, label: "Office", value: COMPANY.address },
+    { icon: MessageCircle, label: "WhatsApp", value: "Chat with us instantly", href: `https://wa.me/${COMPANY.whatsapp}` },
+  ];
+
   return (
     <>
       {/* Hero */}
-      <section className="gradient-mesh relative pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-1.5 rounded-full border border-teal/30 text-teal text-sm font-medium mb-6"
-          >
-            Contact Us
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-white leading-tight mb-6"
-          >
-            Let&apos;s Start Your
-            <br />
-            <span className="text-gradient-teal">Dream Project</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-white/60 text-lg max-w-2xl mx-auto"
-          >
-            Reach out for a free consultation. We&apos;ll get back to you within 24 hours.
-          </motion.p>
+      <section className="hero-atelier grain">
+        <div className="site-shell pt-36 pb-16 md:pt-44 md:pb-20">
+          <div className="flex items-center justify-between border-b border-ink/10 pb-6">
+            <span className="section-kicker">Contact</span>
+            <span className="font-[family-name:var(--font-display)] text-[0.72rem] uppercase tracking-[0.24em] text-slate">
+              Reply within 24h
+            </span>
+          </div>
+          <h1 className="hero-title mt-10 max-w-[16ch]">
+            Let&apos;s start your <em>dream project.</em>
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-slate">
+            Reach out for a free consultation — we&apos;ll get back to you within 24 hours
+            with clear next steps.
+          </p>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 relative">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-5 gap-12">
+      <section className="section-frame section-light border-t border-ink/10">
+        <div className="site-shell">
+          <div className="grid gap-12 lg:grid-cols-5">
             {/* Info */}
             <div className="lg:col-span-2">
               <ScrollReveal>
-                <h2 className="text-2xl font-bold font-[family-name:var(--font-heading)] text-white mb-6">
-                  Get in Touch
-                </h2>
-                <p className="text-white/50 mb-8 leading-relaxed">
-                  Whether you have a question, want to start a project, or simply want to connect — we&apos;d love to hear from you.
+                <h2 className="font-[family-name:var(--font-heading)] text-3xl text-ink">Get in touch</h2>
+                <p className="mt-4 leading-7 text-slate">
+                  Whether you have a question, want to start a project, or simply want to connect —
+                  we&apos;d love to hear from you.
                 </p>
-
-                <div className="space-y-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center shrink-0">
-                      <Phone size={20} className="text-teal" />
+                <div className="mt-8 space-y-5">
+                  {contactItems.map((item) => (
+                    <div key={item.label} className="flex items-start gap-4">
+                      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-[4px] bg-teal/10">
+                        <item.icon size={20} className="text-teal" />
+                      </div>
+                      <div>
+                        <p className="text-sm font-semibold text-ink">{item.label}</p>
+                        {item.href ? (
+                          <a href={item.href} className="text-sm text-slate transition-colors hover:text-teal">
+                            {item.value}
+                          </a>
+                        ) : (
+                          <p className="text-sm text-slate">{item.value}</p>
+                        )}
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold text-white text-sm">Phone</p>
-                      <a href={`tel:${COMPANY.phone}`} className="text-white/50 text-sm hover:text-teal transition-colors">
-                        {COMPANY.phone}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center shrink-0">
-                      <Mail size={20} className="text-teal" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white text-sm">Email</p>
-                      <a href={`mailto:${COMPANY.email}`} className="text-white/50 text-sm hover:text-teal transition-colors">
-                        {COMPANY.email}
-                      </a>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-teal/10 flex items-center justify-center shrink-0">
-                      <MapPin size={20} className="text-teal" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white text-sm">Office</p>
-                      <p className="text-white/50 text-sm">{COMPANY.address}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-xl bg-[#25D366]/10 flex items-center justify-center shrink-0">
-                      <MessageCircle size={20} className="text-[#25D366]" />
-                    </div>
-                    <div>
-                      <p className="font-semibold text-white text-sm">WhatsApp</p>
-                      <a
-                        href={`https://wa.me/${COMPANY.whatsapp}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-white/50 text-sm hover:text-[#25D366] transition-colors"
-                      >
-                        Chat with us instantly
-                      </a>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </ScrollReveal>
             </div>
@@ -141,77 +103,57 @@ export default function ContactPage() {
             {/* Form */}
             <div className="lg:col-span-3">
               <ScrollReveal direction="right">
-                <div className="p-8 rounded-2xl card-dark border border-white/8">
+                <div className="rounded-[4px] card-dark p-8">
                   {isSubmitted ? (
                     <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
-                      className="text-center py-12"
+                      className="py-12 text-center"
                     >
-                      <CheckCircle size={48} className="text-teal mx-auto mb-4" />
-                      <h3 className="text-xl font-semibold text-white mb-2">Thank You!</h3>
-                      <p className="text-white/50">We&apos;ve received your message. Our team will contact you within 24 hours.</p>
+                      <CheckCircle size={48} className="mx-auto mb-4 text-teal" />
+                      <h3 className="mb-2 text-xl font-semibold text-ink">Thank you!</h3>
+                      <p className="text-slate">We&apos;ve received your message. Our team will contact you within 24 hours.</p>
                     </motion.div>
                   ) : (
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <div className="grid gap-6 md:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-medium text-white mb-2">Full Name *</label>
-                          <input
-                            {...register("name")}
-                            className="w-full px-4 py-3 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all bg-dark-mid/50"
-                            placeholder="Your name"
-                          />
-                          {errors.name && <p className="text-orange text-xs mt-1">{errors.name.message}</p>}
+                          <label className="mb-2 block text-sm font-medium text-ink">Full Name *</label>
+                          <input {...register("name")} className={inputClass} placeholder="Your name" />
+                          {errors.name && <p className="mt-1 text-xs text-orange">{errors.name.message}</p>}
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-white mb-2">Email *</label>
-                          <input
-                            {...register("email")}
-                            type="email"
-                            className="w-full px-4 py-3 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all bg-dark-mid/50"
-                            placeholder="your@email.com"
-                          />
-                          {errors.email && <p className="text-orange text-xs mt-1">{errors.email.message}</p>}
+                          <label className="mb-2 block text-sm font-medium text-ink">Email *</label>
+                          <input {...register("email")} type="email" className={inputClass} placeholder="your@email.com" />
+                          {errors.email && <p className="mt-1 text-xs text-orange">{errors.email.message}</p>}
                         </div>
                       </div>
 
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <div className="grid gap-6 md:grid-cols-2">
                         <div>
-                          <label className="block text-sm font-medium text-white mb-2">Phone *</label>
-                          <input
-                            {...register("phone")}
-                            type="tel"
-                            className="w-full px-4 py-3 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all bg-dark-mid/50"
-                            placeholder="+91 98765 43210"
-                          />
-                          {errors.phone && <p className="text-orange text-xs mt-1">{errors.phone.message}</p>}
+                          <label className="mb-2 block text-sm font-medium text-ink">Phone *</label>
+                          <input {...register("phone")} type="tel" className={inputClass} placeholder="+91 98765 43210" />
+                          {errors.phone && <p className="mt-1 text-xs text-orange">{errors.phone.message}</p>}
                         </div>
                         <div>
-                          <label className="block text-sm font-medium text-white mb-2">Service *</label>
-                          <select
-                            {...register("service")}
-                            className="w-full px-4 py-3 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all bg-dark-mid/50"
-                          >
+                          <label className="mb-2 block text-sm font-medium text-ink">Service *</label>
+                          <select {...register("service")} className={inputClass}>
                             <option value="">Select a service</option>
                             <option value="interior">Interior Design</option>
                             <option value="residential">Residential Construction</option>
                             <option value="commercial">Commercial Construction</option>
                             <option value="renovation">Renovation</option>
-                            <option value="architecture">Architecture & Planning</option>
+                            <option value="architecture">Architecture &amp; Planning</option>
                             <option value="landscape">Landscape Design</option>
                             <option value="project-management">Project Management</option>
                           </select>
-                          {errors.service && <p className="text-orange text-xs mt-1">{errors.service.message}</p>}
+                          {errors.service && <p className="mt-1 text-xs text-orange">{errors.service.message}</p>}
                         </div>
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-white mb-2">Budget Range</label>
-                        <select
-                          {...register("budget")}
-                          className="w-full px-4 py-3 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all bg-dark-mid/50"
-                        >
+                        <label className="mb-2 block text-sm font-medium text-ink">Budget Range</label>
+                        <select {...register("budget")} className={inputClass}>
                           <option value="">Select budget range</option>
                           <option value="5-10L">₹5 - 10 Lakhs</option>
                           <option value="10-25L">₹10 - 25 Lakhs</option>
@@ -222,23 +164,21 @@ export default function ContactPage() {
                       </div>
 
                       <div>
-                        <label className="block text-sm font-medium text-white mb-2">Tell us about your project *</label>
+                        <label className="mb-2 block text-sm font-medium text-ink">Tell us about your project *</label>
                         <textarea
                           {...register("message")}
                           rows={4}
-                          className="w-full px-4 py-3 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-sm transition-all bg-dark-light resize-none"
+                          className={`${inputClass} resize-none`}
                           placeholder="Describe your project, location, timeline, and any specific requirements..."
                         />
-                        {errors.message && <p className="text-orange text-xs mt-1">{errors.message.message}</p>}
+                        {errors.message && <p className="mt-1 text-xs text-orange">{errors.message.message}</p>}
                       </div>
 
                       <Button type="submit" size="lg" className="w-full">
                         {isSubmitting ? "Sending..." : <>Send Message <Send size={16} className="ml-2" /></>}
                       </Button>
 
-                      <p className="text-center text-white/50 text-xs">
-                        We respect your privacy. No spam, ever.
-                      </p>
+                      <p className="text-center text-xs text-slate">We respect your privacy. No spam, ever.</p>
                     </form>
                   )}
                 </div>

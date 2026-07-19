@@ -32,7 +32,7 @@ export function SectionHeading({
       <TextReveal as="h2" text={title} className="display-heading" />
       {description && (
         <Reveal delay={0.1}>
-          <p className="mt-5 text-[0.95rem] leading-7 text-light/50">{description}</p>
+          <p className="mt-5 text-[0.95rem] leading-7 text-slate">{description}</p>
         </Reveal>
       )}
     </div>

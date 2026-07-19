@@ -30,7 +30,7 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-white leading-tight mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-ink leading-tight mb-6"
           >
             Everything You Need,
             <br />
@@ -40,7 +40,7 @@ export default function ServicesPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-white/60 text-lg max-w-2xl mx-auto"
+            className="text-slate text-lg max-w-2xl mx-auto"
           >
             From architecture to interiors, construction to project management —
             we offer comprehensive solutions for every civil need.
@@ -59,21 +59,21 @@ export default function ServicesPage() {
                   <Link href={`/services/${service.slug}`}>
                     <motion.div
                       whileHover={{ x: 8 }}
-                      className="group p-8 rounded-2xl bg-dark-mid/60 border border-white/8 hover:border-teal/25 transition-all flex flex-col lg:flex-row gap-6 items-start"
+                      className="group p-8 rounded-[4px] bg-white/70 border border-ink/10 hover:border-teal/40 transition-all flex flex-col lg:flex-row gap-6 items-start"
                     >
                       <div className="w-16 h-16 rounded-xl bg-teal/10 flex items-center justify-center shrink-0 group-hover:bg-teal/20 transition-colors">
                         <Icon size={30} className="text-teal" />
                       </div>
                       <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-white font-[family-name:var(--font-heading)] mb-2">
+                        <h3 className="text-xl font-semibold text-ink font-[family-name:var(--font-heading)] mb-2">
                           {service.title}
                         </h3>
-                        <p className="text-white/50 text-sm leading-relaxed mb-4 max-w-2xl">
+                        <p className="text-slate text-sm leading-relaxed mb-4 max-w-2xl">
                           {service.description}
                         </p>
                         <div className="flex flex-wrap gap-2">
                           {service.features.slice(0, 4).map((f) => (
-                            <span key={f} className="px-3 py-1 rounded-full bg-teal/5 text-xs text-teal border border-white/8">
+                            <span key={f} className="px-3 py-1 rounded-full bg-teal/5 text-xs text-teal border border-teal/20">
                               {f}
                             </span>
                           ))}
@@ -93,12 +93,12 @@ export default function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-dark-light py-20">
+      <section className="section-sand border-t border-ink/10 py-20">
         <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)] text-white mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold font-[family-name:var(--font-heading)] text-ink mb-6">
             Not Sure Where to Start?
           </h2>
-          <p className="text-white/60 mb-8 max-w-xl mx-auto">
+          <p className="text-slate mb-8 max-w-xl mx-auto">
             Book a free consultation. We&apos;ll understand your needs and recommend the perfect solution.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">

@@ -54,66 +54,53 @@ export default function CostEstimatorPage() {
   };
 
   const cost = calculateCost();
+  const selectClass =
+    "w-full p-4 rounded-[4px] border text-left transition-all";
 
   return (
     <>
       {/* Hero */}
-      <section className="gradient-mesh relative pt-32 pb-20 lg:pt-40 lg:pb-28">
-        <div className="max-w-7xl mx-auto px-6 text-center relative z-10">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="inline-block px-4 py-1.5 rounded-full border border-teal/30 text-teal text-sm font-medium mb-6"
-          >
-            <Calculator size={14} className="inline mr-2" />
-            Cost Estimator
-          </motion.span>
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-white leading-tight mb-6"
-          >
-            Get an Instant
-            <br />
-            <span className="text-gradient-teal">Cost Estimate</span>
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-white/60 text-lg max-w-2xl mx-auto"
-          >
-            Answer a few questions to get an approximate cost for your project. No commitment required.
-          </motion.p>
+      <section className="hero-atelier grain">
+        <div className="site-shell pt-36 pb-16 md:pt-44 md:pb-20">
+          <div className="flex items-center justify-between border-b border-ink/10 pb-6">
+            <span className="section-kicker">
+              <Calculator size={13} className="mr-1 inline" /> Cost estimator
+            </span>
+            <span className="font-[family-name:var(--font-display)] text-[0.72rem] uppercase tracking-[0.24em] text-slate">
+              No commitment
+            </span>
+          </div>
+          <h1 className="hero-title mt-10 max-w-[16ch]">
+            Get an instant <em>cost estimate.</em>
+          </h1>
+          <p className="mt-8 max-w-2xl text-lg leading-8 text-slate">
+            Answer a few questions to get an approximate cost for your project — free and
+            without any commitment.
+          </p>
         </div>
       </section>
 
       {/* Estimator */}
-      <section className="py-24 relative">
-        <div className="max-w-2xl mx-auto px-6">
+      <section className="section-frame section-light border-t border-ink/10">
+        <div className="mx-auto max-w-2xl px-6">
           {/* Progress */}
-          <div className="flex items-center justify-between mb-12">
+          <div className="mb-12 flex items-center justify-between">
             {[1, 2, 3, 4].map((s) => (
               <div key={s} className="flex items-center">
                 <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold transition-all ${
-                    s <= step
-                      ? "bg-teal text-white"
-                      : "bg-teal/10 text-teal/50 border border-teal/20"
+                  className={`flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-all ${
+                    s <= step ? "bg-teal text-paper" : "border border-teal/25 bg-teal/10 text-teal/60"
                   }`}
                 >
                   {s < step ? <CheckCircle size={18} /> : s}
                 </div>
-                {s < 4 && (
-                  <div className={`w-12 sm:w-20 h-0.5 mx-2 ${s < step ? "bg-teal" : "bg-teal/10"}`} />
-                )}
+                {s < 4 && <div className={`mx-2 h-0.5 w-12 sm:w-20 ${s < step ? "bg-teal" : "bg-ink/10"}`} />}
               </div>
             ))}
           </div>
 
           {/* Steps */}
-          <div className="p-8 rounded-2xl card-dark border border-white/8 min-h-[300px]">
+          <div className="min-h-[300px] rounded-[4px] card-dark p-8">
             <AnimatePresence mode="wait">
               {!showResult ? (
                 <motion.div
@@ -125,23 +112,17 @@ export default function CostEstimatorPage() {
                 >
                   {step === 1 && (
                     <div>
-                      <h2 className="text-xl font-semibold text-white font-[family-name:var(--font-heading)] mb-2">
-                        What type of project?
-                      </h2>
-                      <p className="text-white/50 text-sm mb-8">Select the service you need</p>
+                      <h2 className="mb-2 font-[family-name:var(--font-heading)] text-xl text-ink">What type of project?</h2>
+                      <p className="mb-8 text-sm text-slate">Select the service you need</p>
                       <div className="space-y-3">
                         {serviceTypes.map((s) => (
                           <button
                             key={s.id}
                             onClick={() => setServiceType(s.id)}
-                            className={`w-full p-4 rounded-xl border text-left transition-all ${
-                              serviceType === s.id
-                                ? "border-gold bg-teal/5"
-                                : "border-white/8 hover:border-teal/30"
-                            }`}
+                            className={`${selectClass} ${serviceType === s.id ? "border-teal bg-teal/5" : "border-ink/12 hover:border-teal/40"}`}
                           >
-                            <span className="font-medium text-white">{s.label}</span>
-                            <span className="text-sm text-white/50 ml-2">(from ₹{s.rate}/sq.ft)</span>
+                            <span className="font-medium text-ink">{s.label}</span>
+                            <span className="ml-2 text-sm text-slate">(from ₹{s.rate}/sq.ft)</span>
                           </button>
                         ))}
                       </div>
@@ -150,41 +131,33 @@ export default function CostEstimatorPage() {
 
                   {step === 2 && (
                     <div>
-                      <h2 className="text-xl font-semibold text-white font-[family-name:var(--font-heading)] mb-2">
-                        What&apos;s the area?
-                      </h2>
-                      <p className="text-white/50 text-sm mb-8">Enter the approximate area in square feet</p>
+                      <h2 className="mb-2 font-[family-name:var(--font-heading)] text-xl text-ink">What&apos;s the area?</h2>
+                      <p className="mb-8 text-sm text-slate">Enter the approximate area in square feet</p>
                       <input
                         type="number"
                         value={area}
                         onChange={(e) => setArea(e.target.value)}
-                        className="w-full px-6 py-4 rounded-xl border border-white/8 focus:border-teal focus:ring-1 focus:ring-teal/20 outline-none text-2xl font-semibold text-white text-center bg-dark-mid/50"
+                        className="w-full rounded-[4px] border border-ink/15 bg-white px-6 py-4 text-center text-2xl font-semibold text-ink outline-none transition-all focus:border-teal focus:ring-1 focus:ring-teal/20"
                         placeholder="e.g. 1500"
                         min="100"
                       />
-                      <p className="text-center text-white/50 text-sm mt-3">Square feet (sq.ft)</p>
+                      <p className="mt-3 text-center text-sm text-slate">Square feet (sq.ft)</p>
                     </div>
                   )}
 
                   {step === 3 && (
                     <div>
-                      <h2 className="text-xl font-semibold text-white font-[family-name:var(--font-heading)] mb-2">
-                        Quality preference?
-                      </h2>
-                      <p className="text-white/50 text-sm mb-8">Choose your preferred quality tier</p>
+                      <h2 className="mb-2 font-[family-name:var(--font-heading)] text-xl text-ink">Quality preference?</h2>
+                      <p className="mb-8 text-sm text-slate">Choose your preferred quality tier</p>
                       <div className="space-y-3">
                         {qualityTiers.map((t) => (
                           <button
                             key={t.id}
                             onClick={() => setQuality(t.id)}
-                            className={`w-full p-4 rounded-xl border text-left transition-all ${
-                              quality === t.id
-                                ? "border-gold bg-teal/5"
-                                : "border-white/8 hover:border-teal/30"
-                            }`}
+                            className={`${selectClass} ${quality === t.id ? "border-teal bg-teal/5" : "border-ink/12 hover:border-teal/40"}`}
                           >
-                            <span className="font-medium text-white capitalize">{t.label}</span>
-                            <p className="text-sm text-white/50 mt-1">{t.description}</p>
+                            <span className="font-medium capitalize text-ink">{t.label}</span>
+                            <p className="mt-1 text-sm text-slate">{t.description}</p>
                           </button>
                         ))}
                       </div>
@@ -193,15 +166,11 @@ export default function CostEstimatorPage() {
 
                   {step === 4 && (
                     <div className="text-center">
-                      <h2 className="text-xl font-semibold text-white font-[family-name:var(--font-heading)] mb-2">
-                        Ready to see your estimate?
-                      </h2>
-                      <p className="text-white/50 text-sm mb-8">
-                        Based on your selections, we&apos;ll calculate an approximate cost.
-                      </p>
-                      <div className="p-6 rounded-xl bg-dark border border-white/8">
-                        <p className="text-sm text-white/50 mb-2">Your selections:</p>
-                        <p className="text-white font-medium capitalize">
+                      <h2 className="mb-2 font-[family-name:var(--font-heading)] text-xl text-ink">Ready to see your estimate?</h2>
+                      <p className="mb-8 text-sm text-slate">Based on your selections, we&apos;ll calculate an approximate cost.</p>
+                      <div className="rounded-[4px] border border-ink/10 bg-sand p-6">
+                        <p className="mb-2 text-sm text-slate">Your selections:</p>
+                        <p className="font-medium capitalize text-ink">
                           {serviceType} • {area} sq.ft • {quality}
                         </p>
                       </div>
@@ -212,18 +181,16 @@ export default function CostEstimatorPage() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-center py-8"
+                  className="py-8 text-center"
                 >
-                  <h2 className="text-xl font-semibold text-white font-[family-name:var(--font-heading)] mb-4">
-                    Your Estimated Cost
-                  </h2>
-                  <div className="text-5xl md:text-6xl font-bold text-gradient-teal font-[family-name:var(--font-heading)] mb-4">
+                  <h2 className="mb-4 font-[family-name:var(--font-heading)] text-xl text-ink">Your Estimated Cost</h2>
+                  <div className="mb-4 font-[family-name:var(--font-heading)] text-5xl font-semibold text-gradient-teal md:text-6xl">
                     ₹{cost.toLocaleString("en-IN")}
                   </div>
-                  <p className="text-white/50 text-sm mb-8">
+                  <p className="mb-8 text-sm text-slate">
                     This is an approximate estimate. Actual costs may vary based on specific requirements, location, and material choices.
                   </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <div className="flex flex-col justify-center gap-4 sm:flex-row">
                     <Button href="/contact">Get Detailed Quote</Button>
                     <Button variant="outline" onClick={() => { setStep(1); setShowResult(false); setServiceType(""); setArea(""); setQuality(""); }}>
                       Start Over
@@ -236,18 +203,18 @@ export default function CostEstimatorPage() {
 
           {/* Navigation */}
           {!showResult && (
-            <div className="flex justify-between mt-6">
+            <div className="mt-6 flex justify-between">
               <button
                 onClick={handleBack}
                 disabled={step === 1}
-                className="flex items-center gap-2 text-sm text-white/50 disabled:opacity-30 hover:text-teal transition-colors"
+                className="flex items-center gap-2 text-sm text-slate transition-colors hover:text-teal disabled:opacity-30"
               >
                 <ArrowLeft size={16} /> Back
               </button>
               <button
                 onClick={handleNext}
                 disabled={!canProceed()}
-                className="flex items-center gap-2 px-6 py-2.5 bg-teal text-white text-sm font-semibold rounded-full disabled:opacity-30 hover:bg-teal-dark transition-all"
+                className="flex items-center gap-2 rounded-full bg-teal px-6 py-2.5 text-sm font-semibold text-paper transition-all hover:bg-teal-dark disabled:opacity-30"
               >
                 {step === 4 ? "Calculate" : "Next"} <ArrowRight size={16} />
               </button>

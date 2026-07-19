@@ -4,88 +4,90 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { PORTFOLIO_PROJECTS } from "@/lib/constants";
 import { TextReveal } from "@/components/motion/TextReveal";
 import { Reveal } from "@/components/motion/Reveal";
 
-const images = [
-  "/images/site/modern-exterior.jpg",
-  "/images/site/detail.jpg",
-  "/images/site/office.jpg",
-  "/images/site/interior-living.jpg",
-];
-
-const layouts = [
-  "md:col-span-7 md:row-span-2",
-  "md:col-span-5",
-  "md:col-span-5",
-  "md:col-span-12",
+const PROJECTS = [
+  {
+    title: "Coastal Villa",
+    place: "ECR, Chennai",
+    tag: "Residential",
+    image: "/images/site/hero-villa.jpg",
+    className: "md:col-span-7 aspect-[16/11]",
+  },
+  {
+    title: "Warm Minimal Living",
+    place: "Anna Nagar",
+    tag: "Interior",
+    image: "/images/site/interior-living.jpg",
+    className: "md:col-span-5 aspect-[4/5]",
+  },
+  {
+    title: "Tidel Workspace",
+    place: "Taramani",
+    tag: "Commercial",
+    image: "/images/site/office.jpg",
+    className: "md:col-span-5 aspect-[4/5]",
+  },
+  {
+    title: "Sculpted Facade",
+    place: "OMR",
+    tag: "Architecture",
+    image: "/images/site/modern-exterior.jpg",
+    className: "md:col-span-7 aspect-[16/11]",
+  },
 ];
 
 export function ProjectsShowcase() {
   return (
-    <section className="section-frame bg-dark">
+    <section className="section-frame section-light">
       <div className="site-shell">
-        <div className="mb-14 grid gap-8 md:grid-cols-[1fr_24rem] md:items-end">
+        <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <div className="section-kicker">Selected work</div>
-            <TextReveal as="h2" text="Built to be experienced." className="display-heading" />
+            <span className="section-kicker">Selected work</span>
+            <TextReveal as="h2" text="Places we've shaped." className="display-heading" />
           </div>
-          <Reveal delay={0.15}>
-            <p className="text-[0.95rem] leading-7 text-light/50">
-              A selection across homes, workplaces and hospitality — each project
-              balancing spatial clarity, material honesty and long-term performance.
-            </p>
-          </Reveal>
-        </div>
-
-        <div className="grid auto-rows-[18rem] grid-cols-1 gap-3 md:grid-cols-12">
-          {PORTFOLIO_PROJECTS.slice(0, 4).map((project, index) => (
-            <motion.article
-              key={project.slug}
-              initial={{ opacity: 0, y: 34 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.8, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className={`group relative overflow-hidden rounded-xl ${layouts[index]}`}
-            >
-              <Link href={`/portfolio/${project.slug}`} className="absolute inset-0">
-                <Image
-                  src={images[index]}
-                  alt={project.title}
-                  fill
-                  sizes={index === 3 ? "100vw" : "(max-width: 768px) 100vw, 55vw"}
-                  className="project-image object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-5 p-6 md:p-8">
-                  <div>
-                    <span className="font-[family-name:var(--font-display)] text-[0.64rem] font-medium uppercase tracking-[0.2em] text-teal">
-                      {project.category}
-                    </span>
-                    <h3 className="mt-2 font-[family-name:var(--font-heading)] text-2xl font-light text-white md:text-3xl">
-                      {project.title}
-                    </h3>
-                    <p className="mt-2 text-xs text-white/55">
-                      {project.specs.area} · {project.specs.duration}
-                    </p>
-                  </div>
-                  <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/35 text-white transition-colors group-hover:border-teal group-hover:bg-teal group-hover:text-dark">
-                    <ArrowUpRight size={17} />
-                  </span>
-                </div>
-              </Link>
-            </motion.article>
-          ))}
-        </div>
-
-        <div className="mt-10 flex justify-end">
           <Link
             href="/portfolio"
-            className="u-line inline-flex items-center gap-3 font-[family-name:var(--font-display)] text-xs font-medium uppercase tracking-[0.14em] text-light hover:text-teal"
+            className="u-line inline-flex items-center gap-2 font-[family-name:var(--font-display)] text-[0.74rem] uppercase tracking-[0.16em] text-ink"
           >
-            View complete portfolio <ArrowUpRight size={15} />
+            All projects <ArrowUpRight size={15} className="text-teal" />
           </Link>
+        </div>
+
+        <div className="mt-14 grid grid-cols-1 gap-4 md:grid-cols-12">
+          {PROJECTS.map((project, i) => (
+            <Reveal key={project.title} delay={(i % 2) * 0.1} className={project.className}>
+              <Link href="/portfolio" className="group block h-full">
+                <div className="relative h-full overflow-hidden rounded-[4px] bg-light-alt">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 55vw"
+                    className="project-image object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/0 to-transparent opacity-80" />
+                  <div className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-paper/40 text-paper opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:opacity-100">
+                    <ArrowUpRight size={18} />
+                  </div>
+                  <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
+                    <div>
+                      <p className="font-[family-name:var(--font-display)] text-[0.66rem] uppercase tracking-[0.2em] text-paper/70">
+                        {project.place}
+                      </p>
+                      <h3 className="mt-1 font-[family-name:var(--font-heading)] text-2xl text-paper md:text-3xl">
+                        {project.title}
+                      </h3>
+                    </div>
+                    <motion.span className="rounded-full border border-paper/30 px-3 py-1 font-[family-name:var(--font-display)] text-[0.62rem] uppercase tracking-[0.18em] text-paper/90">
+                      {project.tag}
+                    </motion.span>
+                  </div>
+                </div>
+              </Link>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>

@@ -21,92 +21,103 @@ const PREVIEWS = [
 
 export function ServicesScroll() {
   const [active, setActive] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
-
+  const wrapRef = useRef<HTMLDivElement>(null);
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
-  const x = useSpring(mx, { stiffness: 180, damping: 22, mass: 0.5 });
-  const y = useSpring(my, { stiffness: 180, damping: 22, mass: 0.5 });
+  const x = useSpring(mx, { stiffness: 260, damping: 28, mass: 0.5 });
+  const y = useSpring(my, { stiffness: 260, damping: 28, mass: 0.5 });
 
   const handleMove = (e: React.MouseEvent) => {
-    const rect = containerRef.current?.getBoundingClientRect();
+    const rect = wrapRef.current?.getBoundingClientRect();
     if (!rect) return;
     mx.set(e.clientX - rect.left);
     my.set(e.clientY - rect.top);
   };
 
   return (
-    <section id="services" className="section-frame overflow-hidden bg-dark">
+    <section id="services" className="section-frame section-light">
       <div className="site-shell">
-        <div className="mb-16 grid gap-8 md:grid-cols-[1fr_22rem] md:items-end">
+        <div className="grid gap-6 md:grid-cols-[auto_1fr] md:items-end md:gap-16">
           <div>
-            <div className="section-kicker">What we do</div>
+            <span className="section-kicker">What we do</span>
             <TextReveal
               as="h2"
               text="Everything under one roof."
               className="display-heading"
             />
           </div>
-          <Reveal delay={0.15}>
-            <p className="text-[0.95rem] leading-7 text-light/50">
-              Seven disciplines, one accountable team. From the first sketch to the
-              final handover, we design and build spaces that perform for decades.
-            </p>
+          <Reveal className="max-w-md pb-2 text-base leading-7 text-slate">
+            Seven disciplines, one accountable team — from the first sketch to the
+            final handover, designed and built to perform for decades.
           </Reveal>
         </div>
 
         <div
-          ref={containerRef}
+          ref={wrapRef}
           onMouseMove={handleMove}
-          className="relative border-t border-white/10"
+          className="relative mt-14 border-t border-ink/12"
         >
-          {/* Cursor-following image preview (desktop) */}
-          <AnimatePresence>
-            {active !== null && (
-              <motion.div
-                className="pointer-events-none absolute z-20 hidden aspect-[4/3] w-72 overflow-hidden rounded-xl lg:block"
-                style={{ x, y, translateX: "-50%", translateY: "-50%" }}
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <Image
-                  src={PREVIEWS[active]}
-                  alt=""
-                  fill
-                  sizes="288px"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-dark/10" />
-              </motion.div>
-            )}
-          </AnimatePresence>
-
           {SERVICES.map((service, i) => (
             <Link
               key={service.slug}
               href={`/services/${service.slug}`}
               onMouseEnter={() => setActive(i)}
               onMouseLeave={() => setActive(null)}
-              className="group relative flex items-center gap-6 border-b border-white/10 py-7 transition-colors hover:bg-white/[0.02] md:py-9"
+              className="group flex items-center justify-between gap-6 border-b border-ink/12 py-7 transition-colors md:py-9"
             >
-              <span className="w-12 shrink-0 font-[family-name:var(--font-display)] text-sm text-light/30 transition-colors group-hover:text-teal">
-                0{i + 1}
-              </span>
-              <div className="flex-1">
-                <h3 className="font-[family-name:var(--font-heading)] text-2xl font-light text-light transition-all duration-500 group-hover:translate-x-2 group-hover:text-teal md:text-4xl">
+              <div className="flex items-baseline gap-5 md:gap-8">
+                <span className="font-[family-name:var(--font-display)] text-xs tracking-[0.2em] text-slate/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <h3
+                  className={`font-[family-name:var(--font-heading)] text-3xl transition-all duration-500 md:text-5xl ${
+                    active === i ? "translate-x-2 text-teal" : "text-ink"
+                  }`}
+                >
                   {service.title}
                 </h3>
               </div>
-              <p className="hidden max-w-xs text-sm leading-6 text-light/45 md:block">
-                {service.short}
-              </p>
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-white/20 text-light transition-colors group-hover:border-teal group-hover:bg-teal group-hover:text-dark">
-                <ArrowUpRight size={17} />
-              </span>
+              <div className="flex items-center gap-6">
+                <p className="hidden max-w-xs text-sm text-slate md:block">{service.short}</p>
+                <span
+                  className={`grid h-11 w-11 shrink-0 place-items-center rounded-full border transition-all duration-500 ${
+                    active === i
+                      ? "border-teal bg-teal text-paper"
+                      : "border-ink/20 text-ink"
+                  }`}
+                >
+                  <ArrowUpRight size={18} />
+                </span>
+              </div>
             </Link>
           ))}
+
+          {/* cursor-following preview */}
+          <motion.div
+            style={{ x, y }}
+            className="pointer-events-none absolute left-0 top-0 z-20 -ml-32 -mt-24 hidden aspect-[4/3] w-64 overflow-hidden rounded-[4px] shadow-2xl lg:block"
+          >
+            <AnimatePresence mode="wait">
+              {active !== null && (
+                <motion.div
+                  key={active}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.35 }}
+                  className="relative h-full w-full"
+                >
+                  <Image
+                    src={PREVIEWS[active]}
+                    alt=""
+                    fill
+                    sizes="256px"
+                    className="object-cover"
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </div>
     </section>

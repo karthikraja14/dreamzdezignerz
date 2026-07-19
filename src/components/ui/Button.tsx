@@ -30,10 +30,10 @@ export function Button({
     "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-[family-name:var(--font-display)] font-medium uppercase tracking-[0.12em] transition-all duration-300 will-change-transform";
 
   const variants = {
-    primary: "btn-fill bg-teal text-dark hover:text-dark",
-    secondary: "bg-dark-mid text-light border border-white/12 hover:border-white/30",
-    outline: "border border-white/25 text-light hover:border-teal hover:text-teal",
-    ghost: "text-light/70 hover:text-teal",
+    primary: "btn-fill bg-teal text-paper hover:text-paper",
+    secondary: "bg-ink text-paper hover:bg-teal",
+    outline: "border border-ink/25 text-ink hover:border-teal hover:text-teal",
+    ghost: "text-ink/70 hover:text-teal",
   };
 
   const sizes = {

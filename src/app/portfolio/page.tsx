@@ -42,7 +42,7 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-white leading-tight mb-6"
+            className="text-4xl md:text-5xl lg:text-6xl font-bold font-[family-name:var(--font-heading)] text-ink leading-tight mb-6"
           >
             Spaces We&apos;ve
             <br />
@@ -52,7 +52,7 @@ export default function PortfolioPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-white/60 text-lg max-w-2xl mx-auto"
+            className="text-slate text-lg max-w-2xl mx-auto"
           >
             Every project tells a story of collaboration, craftsmanship, and transformation.
           </motion.p>
@@ -70,8 +70,8 @@ export default function PortfolioPage() {
                 onClick={() => setActive(cat)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all capitalize ${
                   active === cat
-                    ? "bg-teal text-dark shadow-lg shadow-teal/20"
-                    : "bg-dark-light text-white border border-white/8 hover:border-teal/30"
+                    ? "bg-ink text-paper"
+                    : "bg-white text-ink border border-ink/12 hover:border-teal/50"
                 }`}
               >
                 {cat}
@@ -133,9 +133,9 @@ export default function PortfolioPage() {
 
           {/* Info */}
           <ScrollReveal>
-            <div className="mt-16 text-center p-8 rounded-2xl bg-dark-mid/60 border border-white/8">
-              <p className="text-white font-semibold mb-2">Want to see more?</p>
-              <p className="text-white/50 text-sm">
+            <div className="mt-16 text-center p-8 rounded-[4px] bg-white/60 border border-ink/10">
+              <p className="text-ink font-semibold mb-2">Want to see more?</p>
+              <p className="text-slate text-sm">
                 We have 150+ completed projects. Contact us for a detailed portfolio presentation tailored to your project type.
               </p>
             </div>
