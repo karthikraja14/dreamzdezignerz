@@ -13,6 +13,7 @@ interface ButtonProps {
   type?: "button" | "submit";
   arrow?: boolean;
   external?: boolean;
+  disabled?: boolean;
 }
 
 export function Button({
@@ -25,6 +26,7 @@ export function Button({
   type = "button",
   arrow = false,
   external = false,
+  disabled = false,
 }: ButtonProps) {
   const base =
     "group/btn relative inline-flex items-center justify-center gap-2 rounded-full font-[family-name:var(--font-display)] font-medium uppercase tracking-[0.12em] transition-all duration-300 will-change-transform";
@@ -72,7 +74,7 @@ export function Button({
   }
 
   return (
-    <button type={type} onClick={onClick} className={classes}>
+    <button type={type} onClick={onClick} disabled={disabled} className={cn(classes, disabled && "cursor-not-allowed opacity-60")}>
       {inner}
     </button>
   );

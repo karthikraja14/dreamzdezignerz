@@ -8,6 +8,7 @@ import { z } from "zod";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { Button } from "@/components/ui/Button";
 import { COMPANY } from "@/lib/constants";
+import { submitLead } from "@/lib/submitLead";
 import { Phone, Mail, MapPin, MessageCircle, Send, CheckCircle } from "lucide-react";
 
 const schema = z.object({
@@ -26,6 +27,7 @@ const inputClass =
 
 export default function ContactPage() {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const {
     register,
     handleSubmit,
@@ -33,9 +35,13 @@ export default function ContactPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    console.log("Form submitted:", data);
-    await new Promise((r) => setTimeout(r, 1000));
-    setIsSubmitted(true);
+    setSubmitError("");
+    const result = await submitLead(data, "Contact enquiry");
+    if (result.ok) {
+      setIsSubmitted(true);
+    } else {
+      setSubmitError(result.error || "Something went wrong. Please try again.");
+    }
   };
 
   const contactItems = [
@@ -174,9 +180,13 @@ export default function ContactPage() {
                         {errors.message && <p className="mt-1 text-xs text-orange">{errors.message.message}</p>}
                       </div>
 
-                      <Button type="submit" size="lg" className="w-full">
+                      <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
                         {isSubmitting ? "Sending..." : <>Send Message <Send size={16} className="ml-2" /></>}
                       </Button>
+
+                      {submitError && (
+                        <p className="text-center text-xs text-orange">{submitError}</p>
+                      )}
 
                       <p className="text-center text-xs text-slate">We respect your privacy. No spam, ever.</p>
                     </form>

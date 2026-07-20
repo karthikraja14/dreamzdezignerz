@@ -4,6 +4,9 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppButton } from "@/components/WhatsAppButton";
+import { GoogleAnalytics } from "@/components/Analytics";
+import { OrganizationJsonLd } from "@/components/JsonLd";
+import { siteConfig } from "@/lib/site";
 
 const inter = Inter({
   variable: "--font-body",
@@ -18,17 +21,38 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Dreamz Dezignerz | Interior • Construction • Renovation",
-  description:
-    "Transform your vision into reality with Dreamz Dezignerz. End-to-end interior design, construction, renovation & project management services. Real-time project tracking powered by Vystra.",
+  metadataBase: new URL(siteConfig.url),
+  title: {
+    default: siteConfig.title,
+    template: "%s | Dreamz Dezignerz",
+  },
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
   keywords: [
-    "interior design", "construction company", "home renovation",
-    "architecture", "project management", "Chennai", "Tamil Nadu",
+    "interior design Chennai", "construction company Chennai", "home renovation",
+    "villa construction", "architecture", "commercial fit-out", "project management",
+    "Tamil Nadu", "residential construction", "landscape design",
   ],
+  authors: [{ name: siteConfig.name }],
+  creator: siteConfig.name,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Dreamz Dezignerz | Interior • Construction • Renovation",
-    description: "End-to-end construction, interior design & project management with live tracking.",
     type: "website",
+    locale: siteConfig.locale,
+    url: siteConfig.url,
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 
@@ -40,10 +64,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${spaceGrotesk.variable} h-full`}>
       <body className="min-h-full flex flex-col antialiased">
+        <OrganizationJsonLd />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
         <WhatsAppButton />
+        <GoogleAnalytics />
       </body>
     </html>
   );

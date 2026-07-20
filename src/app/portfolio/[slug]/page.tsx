@@ -1,5 +1,6 @@
 import { PORTFOLIO_PROJECTS } from "@/lib/constants";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 import { Button } from "@/components/ui/Button";
 import { ArrowLeft, MapPin, Clock, Ruler } from "lucide-react";
 import Image from "next/image";
@@ -18,6 +19,19 @@ export function generateStaticParams() {
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const project = PORTFOLIO_PROJECTS.find((p) => p.slug === slug);
+  if (!project) return {};
+  const desc = `${project.title} — ${project.specs.type}, ${project.specs.area}, delivered in ${project.specs.duration}. A project by Dreamz Dezignerz.`;
+  return {
+    title: project.title,
+    description: desc,
+    alternates: { canonical: `/portfolio/${project.slug}` },
+    openGraph: { title: `${project.title} | Dreamz Dezignerz`, description: desc },
+  };
 }
 
 export default async function ProjectDetailPage({ params }: Props) {
