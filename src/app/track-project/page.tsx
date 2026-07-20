@@ -1,19 +1,7 @@
-"use client";
-
-import { useState } from "react";
 import { COMPANY } from "@/lib/constants";
-import { Shield, Eye, BarChart3, Camera, Phone } from "lucide-react";
+import { Shield, Eye, BarChart3, Camera, Phone, ArrowUpRight } from "lucide-react";
 
 export default function TrackProjectPage() {
-  const [phone, setPhone] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 2000);
-  };
-
   return (
     <>
       {/* Hero */}
@@ -45,35 +33,20 @@ export default function TrackProjectPage() {
               Access your dashboard
             </h2>
             <p className="mb-8 text-center text-sm text-slate">
-              Enter your registered phone number to receive an OTP
+              Continue to the Vystra portal to see live progress, photos and milestones
             </p>
 
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-ink">Phone Number</label>
-                <div className="flex">
-                  <span className="rounded-l-[4px] border border-r-0 border-ink/15 bg-sand px-4 py-3 text-sm text-slate">
-                    +91
-                  </span>
-                  <input
-                    type="tel"
-                    value={phone}
-                    onChange={(e) => setPhone(e.target.value)}
-                    className="flex-1 rounded-r-[4px] border border-ink/15 bg-white px-4 py-3 text-sm text-ink outline-none transition-all focus:border-teal focus:ring-1 focus:ring-teal/20"
-                    placeholder="98765 43210"
-                    maxLength={10}
-                  />
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                disabled={phone.length < 10 || isLoading}
-                className="w-full rounded-[4px] bg-teal px-6 py-3 font-semibold text-paper transition-all hover:bg-teal-dark disabled:opacity-50"
-              >
-                {isLoading ? "Sending OTP..." : "Send OTP"}
-              </button>
-            </form>
+            <a
+              href={COMPANY.vystra}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-center gap-2 rounded-[4px] bg-teal px-6 py-3.5 font-semibold text-paper transition-all hover:bg-teal-dark"
+            >
+              Open your dashboard <ArrowUpRight size={16} />
+            </a>
+            <p className="mt-3 text-center text-xs text-slate">
+              Log in with the email &amp; password shared during onboarding.
+            </p>
 
             <div className="mt-6 border-t border-ink/10 pt-6 text-center">
               <p className="mb-2 text-xs text-slate">Don&apos;t have access yet?</p>
