@@ -25,13 +25,13 @@ export function CTASection() {
       <div className="absolute inset-0 bg-gradient-to-t from-ink via-ink/70 to-ink/40" />
 
       <div className="site-shell relative z-10 py-24 text-center md:py-36">
-        <span className="section-kicker justify-center" style={{ color: "#d8b072" }}>
+        <span className="section-kicker justify-center">
           Start a project
         </span>
         <TextReveal
           as="h2"
           text="Let's build something worth living in."
-          className="mx-auto mt-5 max-w-4xl font-[family-name:var(--font-heading)] text-4xl leading-[1.05] text-paper md:text-7xl"
+          className="mx-auto mt-5 max-w-4xl font-[family-name:var(--font-display)] text-4xl font-bold uppercase leading-[0.98] tracking-tight text-paper md:text-7xl"
         />
         <p className="mx-auto mt-6 max-w-xl text-base leading-7 text-paper/60">
           Tell us about your space. We&apos;ll reply within 24 hours with next steps —
@@ -42,7 +42,7 @@ export function CTASection() {
           <Magnetic strength={0.3}>
             <Link
               href="/contact"
-              className="btn-fill group inline-flex items-center gap-2 rounded-full bg-teal px-9 py-4 font-[family-name:var(--font-display)] text-[0.74rem] font-medium uppercase tracking-[0.14em] text-paper"
+              className="btn-fill group inline-flex items-center gap-2 bg-teal px-9 py-4 font-[family-name:var(--font-display)] text-[0.74rem] font-semibold uppercase tracking-[0.14em] text-paper"
             >
               <span className="relative z-10 transition-colors group-hover:text-paper">
                 Book a free consultation
@@ -51,7 +51,7 @@ export function CTASection() {
           </Magnetic>
           <a
             href={`tel:${COMPANY.phone.replace(/\s/g, "")}`}
-            className="inline-flex items-center gap-2 rounded-full border border-paper/25 px-9 py-4 font-[family-name:var(--font-display)] text-[0.74rem] font-medium uppercase tracking-[0.14em] text-paper transition-colors hover:border-teal hover:text-teal"
+            className="inline-flex items-center gap-2 border border-paper/25 px-9 py-4 font-[family-name:var(--font-display)] text-[0.74rem] font-semibold uppercase tracking-[0.14em] text-paper transition-colors hover:border-teal hover:text-teal"
           >
             <Phone size={15} /> {COMPANY.phone}
           </a>

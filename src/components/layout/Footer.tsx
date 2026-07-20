@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
 import { COMPANY, SERVICES } from "@/lib/constants";
@@ -12,7 +13,7 @@ export function Footer() {
           {["Interiors", "•", "Construction", "•", "Renovation", "•", "Architecture", "•"].map((w, i) => (
             <span
               key={i}
-              className="font-[family-name:var(--font-heading)] text-4xl font-light italic text-light/12 md:text-6xl"
+              className="font-[family-name:var(--font-display)] text-4xl font-bold uppercase tracking-tight text-light/10 md:text-6xl"
             >
               {w}
             </span>
@@ -24,11 +25,9 @@ export function Footer() {
         <div className="grid gap-14 lg:grid-cols-[1.5fr_0.8fr_0.9fr]">
           <div>
             <Link href="/" className="inline-flex items-center gap-3 text-light" aria-label="Dreamz Dezignerz home">
-              <span className="grid h-10 w-10 place-items-center rounded-full border border-teal/60 font-[family-name:var(--font-display)] text-sm font-semibold text-teal">
-                DD
-              </span>
-              <span className="font-[family-name:var(--font-display)] text-lg font-semibold uppercase leading-none tracking-[0.14em]">
-                Dreamz <span className="text-light/45">Dezignerz</span>
+              <Image src="/logo-icon.png" alt="Dreamz Dezignerz" width={46} height={32} style={{ width: "auto" }} className="h-8" />
+              <span className="font-[family-name:var(--font-display)] text-lg font-bold uppercase leading-none tracking-[0.12em]">
+                Dreamz <span className="text-teal">Dezignerz</span>
               </span>
             </Link>
             <p className="mt-7 max-w-md text-[0.95rem] leading-7 text-light/45">

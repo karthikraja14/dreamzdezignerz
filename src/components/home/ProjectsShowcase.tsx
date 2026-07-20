@@ -44,14 +44,14 @@ export function ProjectsShowcase() {
       <div className="site-shell">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <span className="section-kicker">Selected work</span>
+            <span className="section-kicker">Selected work / Index</span>
             <TextReveal as="h2" text="Places we've shaped." className="display-heading" />
           </div>
           <Link
             href="/portfolio"
-            className="u-line inline-flex items-center gap-2 font-[family-name:var(--font-display)] text-[0.74rem] uppercase tracking-[0.16em] text-ink"
+            className="group inline-flex items-center gap-2 border border-ink/25 px-6 py-3 font-[family-name:var(--font-display)] text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-ink transition-colors hover:border-teal hover:text-teal"
           >
-            All projects <ArrowUpRight size={15} className="text-teal" />
+            All projects <ArrowUpRight size={15} className="text-teal transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </div>
 
@@ -59,7 +59,7 @@ export function ProjectsShowcase() {
           {PROJECTS.map((project, i) => (
             <Reveal key={project.title} delay={(i % 2) * 0.1} className={project.className}>
               <Link href="/portfolio" className="group block h-full">
-                <div className="relative h-full overflow-hidden rounded-[4px] bg-light-alt">
+                <div className="blueprint-tile relative h-full overflow-hidden bg-light-alt">
                   <Image
                     src={project.image}
                     alt={project.title}
@@ -67,20 +67,20 @@ export function ProjectsShowcase() {
                     sizes="(max-width: 768px) 100vw, 55vw"
                     className="project-image object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ink/60 via-ink/0 to-transparent opacity-80" />
-                  <div className="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full border border-paper/40 text-paper opacity-0 backdrop-blur-sm transition-all duration-500 group-hover:opacity-100">
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/70 via-ink/10 to-transparent" />
+                  <div className="absolute right-5 top-5 grid h-11 w-11 place-items-center bg-orange text-white opacity-0 transition-all duration-500 group-hover:opacity-100">
                     <ArrowUpRight size={18} />
                   </div>
                   <div className="absolute inset-x-0 bottom-0 flex items-end justify-between p-6">
                     <div>
-                      <p className="font-[family-name:var(--font-display)] text-[0.66rem] uppercase tracking-[0.2em] text-paper/70">
+                      <p className="font-[family-name:var(--font-display)] text-[0.66rem] font-semibold uppercase tracking-[0.2em] text-teal-light">
                         {project.place}
                       </p>
-                      <h3 className="mt-1 font-[family-name:var(--font-heading)] text-2xl text-paper md:text-3xl">
+                      <h3 className="mt-1 font-[family-name:var(--font-display)] text-2xl font-bold tracking-tight text-paper md:text-3xl">
                         {project.title}
                       </h3>
                     </div>
-                    <motion.span className="rounded-full border border-paper/30 px-3 py-1 font-[family-name:var(--font-display)] text-[0.62rem] uppercase tracking-[0.18em] text-paper/90">
+                    <motion.span className="border border-paper/30 px-3 py-1 font-[family-name:var(--font-display)] text-[0.62rem] font-semibold uppercase tracking-[0.18em] text-paper/90">
                       {project.tag}
                     </motion.span>
                   </div>

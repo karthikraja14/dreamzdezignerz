@@ -1,63 +1,66 @@
 @import "tailwindcss";
 
 /* ============================================================
-   DREAMZ DEZIGNERZ — "Atelier" design system
-   Light warm architectural gallery
-   paper + sand + ink + terracotta + ochre
+   DREAMZ DEZIGNERZ — "Blueprint" design system
+   Geometric · brand teal + orange · architectural grid
    ============================================================ */
 
 @theme inline {
-  /* Primary accent (terracotta) — mapped to legacy "teal" names */
-  --color-teal: #b5623f;
-  --color-teal-light: #cf7d55;
-  --color-teal-dark: #8f4a2e;
+  /* Brand teal (primary) — from the logo */
+  --color-teal: #1fb0a7;
+  --color-teal-light: #5fd0c7;
+  --color-teal-dark: #147f78;
 
-  /* Secondary accent (warm rust) — mapped to legacy "orange" */
-  --color-orange: #c0693f;
-  --color-orange-light: #d98a5f;
-  --color-orange-dark: #9a4f2c;
+  /* Brand orange (secondary) — from the logo */
+  --color-orange: #e24e10;
+  --color-orange-light: #f4713c;
+  --color-orange-dark: #b33a08;
 
-  /* Ochre aliases (used by some inner pages) */
-  --color-gold: #c1934f;
-  --color-gold-light: #d8b072;
+  /* legacy "gold" alias now points to brand orange */
+  --color-gold: #e24e10;
+  --color-gold-light: #f4713c;
 
-  /* Warm ink (dark text + occasional dark bands) */
-  --color-dark: #1c1917;
-  --color-dark-light: #262019;
-  --color-dark-mid: #322c22;
+  /* Ink (cool near-black, matches logo building lines) */
+  --color-dark: #101619;
+  --color-dark-light: #17201f;
+  --color-dark-mid: #1e2826;
 
-  /* Semantic aliases used by the new components */
-  --color-ink: #1c1917;
-  --color-paper: #f3eee5;
-  --color-sand: #e4dccd;
+  /* Semantic aliases */
+  --color-ink: #101619;
+  --color-paper: #f6f5f1;
+  --color-sand: #eae7df;
 
   /* Neutrals */
-  --color-slate: #6f665a;
-  --color-light: #f3eee5;
-  --color-light-alt: #e4dccd;
+  --color-slate: #59635f;
+  --color-light: #f6f5f1;
+  --color-light-alt: #eae7df;
   --color-white: #ffffff;
 
   /* legacy names some pages reference */
-  --color-charcoal: #262019;
-  --color-charcoal-light: #322c22;
-  --color-copper: #c0693f;
+  --color-charcoal: #17201f;
+  --color-charcoal-light: #1e2826;
+  --color-copper: #e24e10;
 
-  --color-background: #f3eee5;
-  --color-foreground: #1c1917;
+  --color-background: #f6f5f1;
+  --color-foreground: #101619;
 
   --font-sans: var(--font-body);
-  --font-display: var(--font-display);
 }
 
 :root {
   color-scheme: light;
   --page-gutter: clamp(1.25rem, 4vw, 4.5rem);
-  --paper: #f3eee5;
-  --sand: #e4dccd;
-  --ink: #1c1917;
-  --taupe: #6f665a;
-  --terra: #b5623f;
-  --ochre: #c1934f;
+  --paper: #f6f5f1;
+  --sand: #eae7df;
+  --ink: #101619;
+  --slate: #59635f;
+  --teal: #1fb0a7;
+  --orange: #e24e10;
+  --grid-line: rgba(31, 176, 167, 0.14);
+  --hairline: rgba(16, 22, 25, 0.12);
+
+  /* geometric headings replace the old serif */
+  --font-heading: var(--font-display);
 }
 
 * {
@@ -84,16 +87,16 @@ body {
 }
 
 ::selection {
-  background: var(--terra);
+  background: var(--teal);
   color: #fff;
 }
 
 ::-webkit-scrollbar { width: 7px; }
 ::-webkit-scrollbar-track { background: var(--sand); }
-::-webkit-scrollbar-thumb { background: #c9bda6; border-radius: 999px; }
-::-webkit-scrollbar-thumb:hover { background: var(--terra); }
+::-webkit-scrollbar-thumb { background: #cdd4cf; border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--teal); }
 
-.tracking-tight { letter-spacing: 0 !important; }
+.tracking-tight { letter-spacing: -0.01em !important; }
 
 /* ---------- Layout shell ---------- */
 .site-shell {
@@ -104,45 +107,44 @@ body {
 
 .section-frame {
   position: relative;
-  padding-block: clamp(5rem, 10vw, 9.5rem);
+  padding-block: clamp(4.5rem, 9vw, 8.5rem);
 }
 
-/* ---------- Kicker / eyebrow ---------- */
+/* ---------- Kicker / eyebrow (mono spec label) ---------- */
 .section-kicker {
   display: inline-flex;
   align-items: center;
-  gap: .75rem;
-  color: var(--terra);
+  gap: .6rem;
+  color: var(--teal);
   font-family: var(--font-display), sans-serif;
-  font-size: .72rem;
-  font-weight: 500;
-  letter-spacing: .3em;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .28em;
   text-transform: uppercase;
 }
 
 .section-kicker::before {
   content: "";
-  width: 2.25rem;
-  height: 1px;
-  background: currentColor;
-  opacity: .7;
+  width: .5rem;
+  height: .5rem;
+  background: var(--orange);
 }
 
-/* ---------- Display headings ---------- */
+/* ---------- Display headings (geometric, bold) ---------- */
 .display-heading {
-  margin: 1.25rem 0 0;
+  margin: 1.1rem 0 0;
   color: var(--ink);
-  font-family: var(--font-heading), serif;
-  font-size: clamp(2.6rem, 6vw, 5.5rem);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.015em;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.4rem, 5.6vw, 5rem);
+  font-weight: 700;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
   text-wrap: balance;
 }
 
-.display-heading em { font-style: italic; color: var(--terra); }
+.display-heading em { font-style: normal; color: var(--orange); }
 
-/* ---------- Hero (atelier / gallery) ---------- */
+/* ---------- Hero ---------- */
 .hero-atelier {
   position: relative;
   background: var(--paper);
@@ -152,24 +154,27 @@ body {
 .hero-title {
   margin: 0;
   color: var(--ink);
-  font-family: var(--font-heading), serif;
-  font-size: clamp(2.9rem, 8vw, 7.5rem);
-  font-weight: 400;
-  line-height: 0.98;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.7rem, 8vw, 7rem);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
   text-wrap: balance;
 }
 
 .hero-title em {
-  font-style: italic;
-  color: var(--terra);
+  font-style: normal;
+  color: var(--teal);
 }
 
-/* legacy hero classes retained (repointed light) */
+.hero-title .u { color: var(--orange); }
+
+/* legacy hero classes retained */
 .hero-stage { position: relative; min-height: 100svh; overflow: hidden; isolation: isolate; background: var(--paper); }
-.hero-shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(243,238,229,0) 40%, rgba(243,238,229,.6) 100%); }
-.hero-grid { position: absolute; inset: 0; z-index: 2; opacity: 0.5; pointer-events: none;
-  background-image: linear-gradient(90deg, transparent calc(100% - 1px), rgba(28,25,23,.06) 1px); background-size: 20% 100%; }
+.hero-shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, rgba(246,245,241,0) 40%, rgba(246,245,241,.6) 100%); }
+.hero-grid { position: absolute; inset: 0; z-index: 2; opacity: 1; pointer-events: none;
+  background-image: linear-gradient(90deg, transparent calc(100% - 1px), var(--grid-line) 1px); background-size: 12.5% 100%; }
 
 .hero-scroll {
   position: absolute;
@@ -180,20 +185,35 @@ body {
   width: 3rem;
   height: 3rem;
   place-items: center;
-  border: 1px solid rgba(28, 25, 23, .18);
-  border-radius: 50%;
+  border: 1px solid var(--hairline);
   color: var(--ink);
 }
 
-/* ---------- Surfaces ---------- */
+/* ---------- Surfaces / blueprint tiles ---------- */
 .card-dark,
 .card-glass,
 .glass-dark,
-.glass-card {
-  background: #fbf8f2;
-  border: 1px solid rgba(28, 25, 23, .08);
-  box-shadow: 0 1px 0 rgba(255,255,255,.6) inset, 0 18px 40px -28px rgba(28,25,23,.28);
+.glass-card,
+.blueprint-tile {
+  position: relative;
+  background: #fcfbf8;
+  border: 1px solid var(--hairline);
+  box-shadow: 0 18px 40px -30px rgba(16, 22, 25, .3);
 }
+
+/* corner ticks for blueprint tiles */
+.blueprint-tile::before,
+.blueprint-tile::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: var(--teal);
+  border-style: solid;
+  opacity: .8;
+}
+.blueprint-tile::before { top: 8px; left: 8px; border-width: 1px 0 0 1px; }
+.blueprint-tile::after { bottom: 8px; right: 8px; border-width: 0 1px 1px 0; }
 
 .section-light,
 .blueprint-bg,
@@ -210,27 +230,37 @@ body {
   color: var(--paper);
 }
 
+.section-teal { background: var(--teal); color: #fff; }
+
+/* ---------- Blueprint grid backgrounds ---------- */
 .grid-pattern,
 .geo-grid,
 .blueprint-grid {
   background-image:
-    linear-gradient(rgba(28, 25, 23, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(28, 25, 23, .035) 1px, transparent 1px);
-  background-size: 72px 72px;
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.blueprint-grid-fine {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 32px 32px;
 }
 
 /* ---------- Gradient text ---------- */
 .text-gradient,
 .text-gradient-teal,
 .text-gradient-mix {
-  background: linear-gradient(115deg, #b5623f 0%, #c1934f 100%);
+  background: linear-gradient(100deg, #1fb0a7 0%, #e24e10 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
 .text-gradient-orange {
-  background: linear-gradient(115deg, #c0693f, #9a4f2c);
+  background: linear-gradient(100deg, #f4713c, #b33a08);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -238,13 +268,13 @@ body {
 
 /* ---------- Imagery ---------- */
 .project-image {
-  transition: transform 1000ms cubic-bezier(.2, .75, .25, 1), filter 1000ms ease;
-  filter: saturate(0.96) brightness(0.98);
+  transition: transform 900ms cubic-bezier(.2, .75, .25, 1), filter 900ms ease;
+  filter: saturate(1) brightness(0.99);
 }
 
 .group:hover .project-image {
-  transform: scale(1.06);
-  filter: saturate(1.05) brightness(1);
+  transform: scale(1.05);
+  filter: saturate(1.06) brightness(1);
 }
 
 /* ---------- Film grain ---------- */
@@ -254,13 +284,13 @@ body {
   inset: 0;
   z-index: 30;
   pointer-events: none;
-  opacity: 0.035;
+  opacity: 0.03;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   mix-blend-mode: multiply;
 }
 
-.glow-gold { background: radial-gradient(closest-side, rgba(193, 147, 79, 0.2), transparent); }
-.glow-clay { background: radial-gradient(closest-side, rgba(181, 98, 63, 0.18), transparent); }
+.glow-gold { background: radial-gradient(closest-side, rgba(226, 78, 16, 0.16), transparent); }
+.glow-clay { background: radial-gradient(closest-side, rgba(31, 176, 167, 0.18), transparent); }
 
 /* ---------- Marquee ---------- */
 .marquee {
@@ -305,19 +335,29 @@ body {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--ink);
+  background: var(--orange);
   transform: translateY(101%);
   transition: transform .5s cubic-bezier(.2, .75, .25, 1);
 }
 .btn-fill:hover::before { transform: translateY(0); }
 
 /* thin hairline rule */
-.rule { height: 1px; background: rgba(28, 25, 23, .12); border: 0; }
+.rule { height: 1px; background: var(--hairline); border: 0; }
+
+/* mono spec text (coordinates / measurements) */
+.spec {
+  font-family: var(--font-display), sans-serif;
+  font-size: .68rem;
+  font-weight: 500;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
 
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
-  .section-frame { padding-block: 4.5rem; }
-  .hero-grid { background-size: 33% 100%; }
+  .section-frame { padding-block: 4rem; }
+  .hero-grid { background-size: 25% 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

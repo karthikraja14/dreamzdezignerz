@@ -20,10 +20,8 @@ export function TestimonialsSection() {
     <section className="section-frame section-dark grain">
       <div className="site-shell">
         <div className="flex items-center justify-between">
-          <span className="section-kicker" style={{ color: "#d8b072" }}>
-            Kind words
-          </span>
-          <div className="flex items-center gap-1 text-gold">
+          <span className="section-kicker">Client feedback</span>
+          <div className="flex items-center gap-1 text-orange">
             {Array.from({ length: current.rating }).map((_, i) => (
               <Star key={i} size={15} fill="currentColor" />
             ))}
@@ -41,11 +39,11 @@ export function TestimonialsSection() {
               transition={{ duration: 0.6, ease: EASE }}
               className="max-w-5xl"
             >
-              <p className="font-[family-name:var(--font-heading)] text-2xl leading-snug text-paper md:text-4xl md:leading-[1.25]">
+              <p className="font-[family-name:var(--font-display)] text-2xl font-bold leading-[1.2] tracking-tight text-paper md:text-4xl">
                 &ldquo;{current.quote}&rdquo;
               </p>
               <footer className="mt-8 flex items-center gap-4">
-                <span className="grid h-12 w-12 place-items-center rounded-full bg-teal font-[family-name:var(--font-heading)] text-lg text-paper">
+                <span className="grid h-12 w-12 place-items-center bg-teal font-[family-name:var(--font-display)] text-lg font-bold text-paper">
                   {current.name.charAt(0)}
                 </span>
                 <div>
@@ -67,14 +65,14 @@ export function TestimonialsSection() {
             <button
               onClick={() => paginate(-1)}
               aria-label="Previous testimonial"
-              className="grid h-11 w-11 place-items-center rounded-full border border-paper/25 text-paper transition-colors hover:border-teal hover:text-teal"
+              className="grid h-11 w-11 place-items-center border border-paper/25 text-paper transition-colors hover:border-teal hover:bg-teal hover:text-ink"
             >
               <ArrowLeft size={17} />
             </button>
             <button
               onClick={() => paginate(1)}
               aria-label="Next testimonial"
-              className="grid h-11 w-11 place-items-center rounded-full border border-paper/25 text-paper transition-colors hover:border-teal hover:text-teal"
+              className="grid h-11 w-11 place-items-center border border-paper/25 text-paper transition-colors hover:border-teal hover:bg-teal hover:text-ink"
             >
               <ArrowRight size={17} />
             </button>

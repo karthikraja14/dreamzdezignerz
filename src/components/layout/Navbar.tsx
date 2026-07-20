@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion";
 import { Menu, X, ArrowUpRight } from "lucide-react";
@@ -38,12 +39,10 @@ export function Navbar() {
         }`}
       >
         <nav className="site-shell flex h-20 items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 text-ink" aria-label="Dreamz Dezignerz home">
-            <span className="grid h-9 w-9 place-items-center rounded-full border border-teal/60 font-[family-name:var(--font-display)] text-sm font-semibold text-teal">
-              DD
-            </span>
-            <span className="font-[family-name:var(--font-display)] text-[0.82rem] font-semibold uppercase leading-none tracking-[0.16em]">
-              Dreamz <span className="text-ink/40">Dezignerz</span>
+          <Link href="/" className="flex items-center gap-2.5 text-ink" aria-label="Dreamz Dezignerz home">
+            <Image src="/logo-icon.png" alt="Dreamz Dezignerz" width={40} height={28} priority style={{ width: "auto" }} className="h-7" />
+            <span className="font-[family-name:var(--font-display)] text-[0.82rem] font-bold uppercase leading-none tracking-[0.14em]">
+              Dreamz <span className="text-teal">Dezignerz</span>
             </span>
           </Link>
 
@@ -107,7 +106,7 @@ export function Navbar() {
                 <Link
                   href={link.href}
                   onClick={() => setIsMobileOpen(false)}
-                  className="font-[family-name:var(--font-heading)] text-4xl font-light text-ink transition-colors hover:text-teal"
+                  className="font-[family-name:var(--font-display)] text-4xl font-bold uppercase tracking-tight text-ink transition-colors hover:text-teal"
                 >
                   {link.label}
                 </Link>
