@@ -12,8 +12,11 @@ const nextConfig: NextConfig = {
   // Pages serves each route as a folder (/about/ -> /about/index.html).
   trailingSlash: true,
   images: {
-    // GitHub Pages has no Image Optimization server, so serve images as-is.
-    unoptimized: true,
+    // GitHub Pages has no Image Optimization server. A custom loader serves
+    // images as static files AND prepends the basePath so they resolve on a
+    // project Pages site (/<repo>/...). See ./image-loader.ts.
+    loader: "custom",
+    loaderFile: "./image-loader.ts",
   },
   // Strip the "X-Powered-By: Next.js" header.
   poweredByHeader: false,
